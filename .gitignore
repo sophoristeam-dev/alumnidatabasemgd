@@ -7,7 +7,14 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.npm-cache/
 dist
+.preview/
+.test-dist/
+src/data/raw/
+src/data/private/
+*.local.csv
+*.private.pdf
 dist-ssr
 *.local
 
