@@ -1,6 +1,7 @@
 import { ArrowUpRight, Search } from 'lucide-react';
 import { useMemo } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { AnimatedList } from '../components/bits/AnimatedList';
 import { Footer } from '../components/layout/Footer';
 import { PageIntro } from '../components/layout/PageIntro';
 import { alumniRecords } from '../data/records';
@@ -11,6 +12,7 @@ import { alumniPath } from '../routes';
 const countries = [...new Set(alumniRecords.map((record) => record.destination.country))].sort();
 
 export function StudentsPage() {
+  const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const query = params.get('q') ?? '';
   const batch = (params.get('batch') ?? '') as Batch | '';
@@ -30,6 +32,11 @@ export function StudentsPage() {
         <PageIntro eyebrow="Connected archive" title="STUDENT RECORDS" compact>
           <p>One record per student, connected to her batch, institution, field, destination and complete available source details.</p>
         </PageIntro>
+
+        <section className="student-quick-jump" aria-labelledby="quick-jump-title">
+          <div><p>QUICK JOURNEY INDEX</p><h2 id="quick-jump-title">Move directly to<br />a student record.</h2><span>Hover, scroll, use the arrow keys, or select a name. The full index remains below.</span></div>
+          <AnimatedList items={records.map((record) => record.displayName)} initialSelectedIndex={-1} displayScrollbar showGradients enableArrowNavigation onItemSelect={(_, index) => { const record = records[index]; if (record) navigate(alumniPath(record.id)); }} />
+        </section>
 
         <section className="student-controls" aria-label="Filter student records">
           <label className="student-search"><Search size={18} aria-hidden="true" /><span className="sr-only">Search student records</span><input value={query} onChange={(event) => update('q', event.target.value)} placeholder="Search student, institution, course, city or goal…" /></label>

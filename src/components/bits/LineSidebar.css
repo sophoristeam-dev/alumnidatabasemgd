@@ -1,0 +1,11 @@
+.line-sidebar { --accent-color:#c6a560; --text-color:#84776f; --marker-color:#a69b91; --marker-length:54px; --marker-gap:12px; --tick-scale:.45; --max-shift:24px; --item-gap:20px; --font-size:.78rem; position:relative; display:flex; justify-content:flex-start; }
+.line-sidebar--markers { padding-left:calc(var(--marker-length) + var(--marker-gap)); }
+.line-sidebar__list { list-style:none; margin:0; padding:1rem 0; display:flex; flex-direction:column; gap:var(--item-gap); }
+.line-sidebar__item { position:relative; cursor:pointer; }
+.line-sidebar__item::before { content:''; position:absolute; inset:-6px -48px; }
+.line-sidebar__label { position:relative; display:inline-flex; align-items:baseline; padding:0; border:0; color:color-mix(in srgb,var(--accent-color) calc(var(--effect,0)*100%),var(--text-color)); background:transparent; font-size:var(--font-size); line-height:1.2; letter-spacing:.14em; text-transform:uppercase; transform:translateX(calc(var(--effect,0)*var(--max-shift))); cursor:pointer; }
+.line-sidebar__index { margin-right:.75rem; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.78em; opacity:calc(.5 + var(--effect,0)*.5); }
+.line-sidebar__marker { position:absolute; top:50%; left:calc(-1*var(--marker-length) - var(--marker-gap)); width:var(--marker-length); height:1px; background:color-mix(in srgb,var(--accent-color) calc(var(--effect,0)*100%),var(--marker-color)); transform-origin:left center; transform:translateY(-50%) scaleX(calc(.7 + var(--effect,0)*.3)); }
+.line-sidebar--markers .line-sidebar__item:not(:last-child)::after { content:''; position:absolute; top:calc(100% + var(--item-gap)/2); left:calc(-1*var(--marker-length) - var(--marker-gap)); width:calc(var(--marker-length)*var(--tick-scale)); height:1px; background:var(--marker-color); opacity:.38; transform:translateY(-50%); }
+.line-sidebar--scale-tick .line-sidebar__item:not(:last-child)::after { transform-origin:left center; transform:translateY(-50%) scaleX(calc(.7 + var(--effect,0)*.6)); }
+@media (prefers-reduced-motion:reduce) { .line-sidebar__label,.line-sidebar__marker { transform:none; } }
